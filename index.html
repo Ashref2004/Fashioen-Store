@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikram Fashion - Luxury Watches & Apparel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #d4af37;
+            --accent: #b8860b;
+            --light: #f8f8f8;
+            --text: #e0e0e0;
+            --overlay: rgba(0, 0, 0, 0.7);
+            --transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            background: var(--primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Video Hero */
+        .video-hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(4px);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .logo-outer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .logo-inner-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            border: 1px solid var(--secondary);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .logo-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+            filter: brightness(1.1);
+        }
+
+        .hero-content {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            z-index: 100;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .main-nav.scrolled {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 3rem;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-menu ul li {
+            margin: 2rem 0;
+        }
+
+        .nav-menu ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .nav-menu ul li a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu ul li a:hover {
+            color: var(--secondary);
+        }
+
+        /* Séparation de lumier  poure les classe */
+        .highlight-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .highlight-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .highlight-background img, .highlight-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .highlight-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .highlight-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition);
+        }
+
+        .highlight-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            letter-spacing: 3px;
+        }
+
+        .highlight-text {
+            max-width: 600px;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+
+        .highlight-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--secondary);
+            border: 1px solid var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .highlight-btn:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            padding: 4rem 3rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-social a {
+            color: var(--text);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumbs a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--secondary);
+        }
+
+        .breadcrumbs span {
+            margin: 0 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* Video Footer */
+        .video-footer {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        .video-footer video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(4px);
+        }
+
+        .video-footer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .video-footer-content h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--secondary);
+        }
+
+        /* Contact ficher */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* sponsore posstion */
+        .sponsored-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .brand-logo {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .brand-logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: var(--transition);
+        }
+
+        .brand-logo:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .brand-logo:hover img {
+            filter: brightness(1) invert(0) sepia(1) saturate(5) hue-rotate(30deg);
+        }
+
+        /* effet de bleut */
+        #Sponsored .highlight-background img,
+        #about .highlight-background img,
+        #new-models .highlight-background img,
+        #craftsmanship .highlight-background img {
+            filter: blur(5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .highlight-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                padding: 1rem;
+            }
+            
+            .logo-container {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+            
+            .highlight-content {
+                padding: 0 1.5rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sponsored-logos {
+                gap: 1.5rem;
+            }
+
+            .brand-logo {
+                height: 60px;
+                padding: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-menu ul li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-menu ul li a {
+                font-size: 1.2rem;
+            }
+            
+            .highlight-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .video-footer-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .sponsored-logos {
+                gap: 1rem;
+            }
+
+            .brand-logo {
+                height: 50px;
+                padding: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="video-hero" id="home">
+        <div class="video-background">
+            <video autoplay muted loop id="hero-video">
+                <source src="videos/hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-overlay">
+            <div class="logo-container">
+                <div class="logo-outer-ring"></div>
+                <div class="logo-inner-ring"></div>
+                <img src="images/logo.jpg" alt="Ikram Fashion" class="logo-img">
+            </div>
+            <div class="hero-content">
+                <h1>IKRAM FASHION</h1>
+                <p>Luxury watches and apparel since 2025</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="main-nav">
+        <a href="#" class="nav-logo">IKRAM</a>
+        <button class="menu-toggle">
+            ☰
+        </button>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="men.html">Men's Collection</a></li>
+                <li><a href="women.html">Women's Collection</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="highlight-section" id="new-models">
+        <div class="highlight-background">
+            <img src="images/new-models.jpg" alt="New Models 2025" loading="lazy">
+        </div>
+        <div class="highlight-overlay"></div>
+        <div class="highlight-content">
+            <h2 class="highlight-title">New Models 2025</h2>
+            <p class="highlight-text">
+                Discover our exclusive collection of 2025 models, featuring innovative designs 
+                and the finest materials. Each piece represents the pinnacle of craftsmanship.
+            </p>
+        </div>
+    </section>
+
+    <section class="highlight-section" id="craftsmanship">
+        <div class="highlight-background">
+            <img src="images/craftsmanship.jpg" alt="Craftsmanship" loading="lazy">
+        </div>
+        <div class="highlight-overlay"></div>
+        <div class="highlight-content">
+            <h2 class="highlight-title">Exceptional Craftsmanship</h2>
+            <p class="highlight-text">
+                Our artisans dedicate hundreds of hours to perfect each piece, combining 
+                traditional techniques with modern innovation to create timeless masterpieces.
+            </p>
+        </div>
+    </section>
+
+    <section class="highlight-section" id="Sponsored">
+        <div class="highlight-background">
+            <img src="images/Tienda de ropa.jfif" alt="Sponsored Partners" loading="lazy">
+        </div>
+        <div class="highlight-overlay"></div>
+        <div class="highlight-content">
+            <h2 class="highlight-title">Our Esteemed Partners</h2>
+            <p class="highlight-text">
+                At Ikram Fashion, we partner with the world's most prestigious names in luxury fashion and horology to bring you exclusive collections, rare finds, and limited editions — curated for those with a refined eye for elegance.
+            </p>
+            <div class="sponsored-logos">
+                <div class="brand-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zara_Logo.svg/1200px-Zara_Logo.svg.png" alt="Zara">
+                </div>
+                <div class="brand-logo">
+                    <img src="https://www.freepnglogos.com/uploads/rolex-png-logo/rolex-png-logo-0.png" alt="Rolex" style="max-width: 150px;"> 
+                </div>
+                <div class="brand-logo">
+                    <img src="https://www.freepnglogos.com/uploads/gucci-logo-png/gucci-logo-vector-download-0.png" alt="Gucci" style="max-width: 150px;">
+                </div>
+                <div class="brand-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png" alt="Nike">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="highlight-section" id="about">
+        <div class="highlight-background">
+            <img src="images/partners.jfif" alt="About Ikram Fashion" loading="lazy">
+        </div>
+        <div class="highlight-overlay"></div>
+        <div class="highlight-content">
+            <h2 class="highlight-title">Our Story</h2>
+            <div class="about-content">
+                <p>
+                    Founded in the heart of Tissemsilt, Ikram Fashion 2025 began as a humble atelier dedicated to exquisite craftsmanship and timeless elegance. Today, we have grown into a global symbol of luxury — where every thread tells a story of passion, precision, and prestige.
+                </p>
+                <p>
+                    Every product presented by Ikram Fashion is a carefully curated piece — imported with precision, selected from the world's finest sources, and offered to you as a statement of luxury, quality, and refined taste
+                </p>
+                <p>
+                    Our vision is to elevate the essence of luxury fashion by hand-selecting timeless, elegant pieces from around the world — blending classic sophistication with contemporary flair, and offering collections that transcend trends to become treasures for generations to come.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <a href="men.html">Men</a>
+            <span>/</span>
+            <a href="women.html">Women's</a>
+            <span></span>
+            <a href="#new-models">New Models 2025</a>
+        </div>
+
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3>Ikram Collections</h3>
+                <ul>
+                    <li><a href="#index.html">Home</a></li>
+                    <li><a href="men.html">Men's Collection</a></li>
+                    <li><a href="women.html">Women's Collection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>The Collection</h3>
+                <ul>
+                    <li><a href="#">Classic Series</a></li>
+                    <li><a href="#">Modern Designs</a></li>
+                    <li><a href="#">Business Collection</a></li>
+                    <li><a href="#">Vintage Selection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Craftsmanship</h3>
+                <ul>
+                    <li><a href="#">Our experts</a></li>
+                    <li><a href="#">Unparalleled quality</a></li>
+                    <li><a href="#">Careful selection</a></li>
+                    <li><a href="#">Quality Assurance</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About Ikram</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Behind the Brand</a></li>
+                    <li><a href="#">History</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-links">
+                <a href="#">Legal Notice</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookies</a>
+                <a href="#">Accessibility</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 Ikram Fashion. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div class="video-footer">
+        <video autoplay muted loop>
+            <source src="videos/footer-video.mp4" type="video/mp4">
+        </video>
+        <div class="video-footer-overlay">
+            <div class="video-footer-content">
+                <h2>Discover the Art of Time</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile sections
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.main-nav');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        const highlightSections = document.querySelectorAll('.highlight-section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const content = entry.target.querySelector('.highlight-content');
+                    content.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+        
+        highlightSections.forEach(section => {
+            observer.observe(section);
+        });
+        
+        function changeVideo(videoPath) {
+            const video = document.getElementById('hero-video');
+            video.src = videoPath;
+            video.load();
+            video.play();
+        }
+
+        const contactForm = document.querySelector('.contact-form form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message. We will contact you soon.');
+                this.reset();
+            });
+        }
+    </script>
+</body>
+</html>
